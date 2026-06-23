@@ -40,6 +40,14 @@ console.warn = function(...args) {
     appendLog(`⚠ WARN: ${args.join(' ')}`, 'terminal__log-item--warn');
 };
 
+// Capturar errores no controlados en tiempo de ejecución
+window.addEventListener('error', function(event) {
+    const errorMsg = event.message || 'Error desconocido';
+    const filename = event.filename ? event.filename.split('/').pop() : 'script.js';
+    const lineno = event.lineno || '?';
+    console.error(`${errorMsg} (${filename}:${lineno})`);
+});
+
 
 let retos = [];
 let indexActual = 0;
